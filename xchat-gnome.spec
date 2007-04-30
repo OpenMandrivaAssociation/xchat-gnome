@@ -1,3 +1,4 @@
+%define __libtoolize true
 %define build_plf 0
 %define build_perl 1
 %define build_python 1
@@ -19,7 +20,7 @@
 %{?_with_netmon: %{expand: %%global build_netmon 1}} 
 
 %define name	xchat-gnome
-%define version	0.16
+%define version	0.17
 %define rel	1
 %define main_summary	Graphical IRC client for the GNOME desktop 
 %define perl_version	%(rpm -q --qf '%%{epoch}:%%{VERSION}' perl)
@@ -37,16 +38,9 @@ Group:		Networking/IRC
 License:	GPL
 Url:		http://xchat-gnome.navi.cx/
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
-
 Source:		http://flapjack.navi.cx/releases/xchat-gnome/%{name}-%{version}.tar.bz2 
-
 # do not give away OS with VERSION
 Patch0:		xchat-gnome-0.12-ctcp_version.patch
-
-# use mozilla-firefox instead of firefox
-# not needed(?)
-#Patch4:		xchat-2.4.1-firefox.patch.bz2
-
 BuildRequires:	bison
 Buildrequires:	gtk+2-devel
 BuildRequires:	openssl-devel
@@ -78,7 +72,8 @@ BuildRequires:	libtool
 BuildRequires:	automake1.8
 BuildRequires:	libxslt-proc
 BuildRequires:	desktop-file-utils
-Provides:	xchat-gnome-dbus = %version-%release
+BuildRequires:	chrpath
+Provides:	xchat-gnome-dbus = %{version}-%{release}
 Obsoletes:	xchat-gnome-dbus < 0.15
 Requires(post): scrollkeeper
 Requires(postun): scrollkeeper
@@ -109,7 +104,7 @@ This package contains xchat-plugin.h needed to build external plugins.
 Summary:	XChat Perl plugin
 Group:		Networking/IRC
 Requires:	%{name} = %{version}
-Requires:	perl-base = %perl_version
+Requires:	perl-base = %{perl_version}
 
 %description perl
 Provides Perl scripting capability to XChat.
@@ -183,10 +178,8 @@ Provides capability to extract URLs from XChat conversations.
 %prep
 %setup -q
 %patch0 -p1 -b .ctcp_version
-#%patch4 -p0 -b .firefox
 
 %build
-
 %configure2_5x  --disable-schemas-install \
 		--disable-scrollkeeper \
 		--with-plugins=autoaway,notification,notify-osd,url_scraper,sound-notification\
@@ -215,8 +208,6 @@ Provides capability to extract URLs from XChat conversations.
 
 mv %{buildroot}%{_sysconfdir}/gconf/schemas/url_handler.schemas %{buildroot}%{_sysconfdir}/gconf/schemas/xchat_gnome_url_handler.schemas
 
-%find_lang xchat-gnome
-
 mkdir -p %{buildroot}{%{_miconsdir},%{_iconsdir},%{_liconsdir},%{_menudir}}
 install -D data/icons/hicolor/48x48/apps/xchat-gnome.png %{buildroot}%{_liconsdir}/%{iconname}
 install -D data/icons/hicolor/scalable/apps/xchat-gnome-plugin.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/xchat-gnome.svg
@@ -226,22 +217,12 @@ install -D data/icons/hicolor/128x128/apps/xchat-gnome.png %{buildroot}%{_iconsd
 convert data/icons/hicolor/128x128/apps/xchat-gnome.png -geometry 16x16 %{buildroot}%{_miconsdir}/%{iconname}
 convert data/icons/hicolor/128x128/apps/xchat-gnome.png -geometry 32x32 %{buildroot}%{_iconsdir}/%{iconname}
 
-cat > $RPM_BUILD_ROOT%{_menudir}/%{name} << EOF
-?package(%name): needs="x11" \
-	section="Internet/Chat" \
-	title="XChat-GNOME IRC Chat" \
-	longtitle="%{main_summary}" \
-	command="%{_bindir}/%{name}" \
-	icon="%{name}.png" \
-	xdg="true"
-EOF
-
 desktop-file-install --vendor="" \
   --remove-category="Application" \
   --add-category="GTK" \
   --add-category="IRCClient" \
   --add-category="X-MandrivaLinux-Internet-Chat" \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
+  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
 
 mkdir -p %{buildroot}%{_includedir}
 cp plugins/xchat-plugin.h %{buildroot}%{_includedir}/
@@ -251,6 +232,12 @@ rm -f %{buildroot}%{_libdir}/xchat-gnome/plugins/*.a
 rm -f %{buildroot}%{_libdir}/xchat-gnome/plugins/netmonitor.*
 %endif
 
+#nuke rpath
+chrpath -d %{buildroot}%{_bindir}/*
+chrpath -d %{buildroot}%{_libdir}/%{name}/plugins/notifyosd.so
+chrpath -d %{buildroot}%{_libdir}/%{name}/plugins/autoaway.so
+
+%find_lang xchat-gnome
 
 %post
 export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
@@ -303,18 +290,17 @@ gconftool-2 --makefile-uninstall-rule %{_sysconfdir}/gconf/schemas/urlscraper.sc
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
-%files -f xchat-gnome.lang
-%defattr(-,root,root)
-%doc README ChangeLog COPYING
+%files -f %{name}.lang
+%defattr(644,root,root,755)
+%doc NEWS AUTHORS ChangeLog COPYING
 %{_sysconfdir}/gconf/schemas/apps_xchat.schemas
 %{_sysconfdir}/gconf/schemas/xchat_gnome_url_handler.schemas
-%{_bindir}/xchat-gnome
+%attr(755,root,root) %{_bindir}/xchat-gnome
 %{_datadir}/applications/xchat-gnome.desktop
 %{_datadir}/xchat-gnome
 %{_datadir}/gnome/help/xchat-gnome
 %{_datadir}/dbus-1/services/org.gnome.Xchat.service
 %{_datadir}/omf/xchat-gnome
-%{_menudir}/*
 %{_iconsdir}/hicolor/*/apps/*
 %{_iconsdir}/%{iconname}
 %{_liconsdir}/%{iconname}
