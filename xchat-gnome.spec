@@ -273,7 +273,7 @@ chrpath -d %{buildroot}%{_libdir}/%{name}/plugins/autoaway.so
 %{_iconsdir}/hicolor/*/apps/*
 %dir %{_libdir}/xchat-gnome
 %dir %{_libdir}/xchat-gnome/plugins
-%{_mandir}/man1/xchat-gnome.1.bz2
+%{_mandir}/man1/xchat-gnome.*
 
 %files devel
 %defattr(-,root,root)
