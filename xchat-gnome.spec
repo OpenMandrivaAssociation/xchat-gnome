@@ -37,7 +37,7 @@ Source:		http://flapjack.navi.cx/releases/xchat-gnome/%{name}-%{version}.tar.bz2
 # do not give away OS with VERSION
 Patch0:		xchat-gnome-0.12-ctcp_version.patch
 # (tpg) no more crash on startup
-Patch1:		%{name}-0.17-config.patch
+Patch1:		%{name}-0.18-config.patch
 BuildRequires:	bison
 Buildrequires:	gtk+2-devel
 BuildRequires:	openssl-devel
