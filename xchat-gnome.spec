@@ -1,4 +1,3 @@
-%define __libtoolize true
 %define build_plf 0
 %define build_perl 1
 %define build_python 1
@@ -35,7 +34,7 @@ License:	GPLv2+
 Url:		http://xchat-gnome.navi.cx
 Source:		http://flapjack.navi.cx/releases/xchat-gnome/%{name}-%{version}.tar.bz2 
 # do not give away OS with VERSION
-Patch0:		xchat-gnome-0.12-ctcp_version.patch
+Patch0:		%{name}-0.18-ctcp_version.patch
 # (tpg) no more crash on startup
 Patch1:		%{name}-0.18-config.patch
 BuildRequires:	bison
@@ -64,10 +63,7 @@ BuildRequires:	dbus-devel >= 0.50
 %if %build_plf
 BuildRequires:	socks5-devel
 %endif
-BuildRequires:	libtool
-BuildRequires:	automake1.8
 BuildRequires:	libxslt-proc
-BuildRequires:	desktop-file-utils
 BuildRequires:	chrpath
 Provides:	xchat-gnome-dbus = %{version}-%{release}
 Obsoletes:	xchat-gnome-dbus < 0.15
@@ -172,7 +168,7 @@ Provides capability to extract URLs from XChat conversations.
 
 %build
 %configure2_5x  --disable-schemas-install \
-		--disable-scrollkeeper \
+		--enable-scrollkeeper \
 		--disable-static \
 		--with-plugins=autoaway,notification,notify-osd,url_scraper,sound-notification\
 %if %build_perl
@@ -199,14 +195,6 @@ Provides capability to extract URLs from XChat conversations.
 %makeinstall_std
 
 mv %{buildroot}%{_sysconfdir}/gconf/schemas/url_handler.schemas %{buildroot}%{_sysconfdir}/gconf/schemas/xchat_gnome_url_handler.schemas
-
-
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --add-category="GTK" \
-  --add-category="IRCClient" \
-  --add-category="X-MandrivaLinux-Internet-Chat" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
 
 mkdir -p %{buildroot}%{_includedir}
 cp plugins/xchat-plugin.h %{buildroot}%{_includedir}/
