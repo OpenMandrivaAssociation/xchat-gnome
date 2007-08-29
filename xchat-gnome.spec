@@ -31,7 +31,7 @@ Name:		xchat-gnome
 Version:	0.18
 Release:	%mkrel 1
 Group:		Networking/IRC
-License:	GPL
+License:	GPLv2+
 Url:		http://xchat-gnome.navi.cx
 Source:		http://flapjack.navi.cx/releases/xchat-gnome/%{name}-%{version}.tar.bz2 
 # do not give away OS with VERSION
