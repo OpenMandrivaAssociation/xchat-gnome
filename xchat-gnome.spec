@@ -38,8 +38,6 @@ Source:		http://flapjack.navi.cx/releases/xchat-gnome/%{name}-%{version}.tar.bz2
 Patch0:		xchat-gnome-0.12-ctcp_version.patch
 # (tpg) no more crash on startup
 Patch1:		%{name}-0.17-config.patch
-Patch2:		%{name}-0.17-static.patch
-Patch3:		%{name}-0.17-setup-dialog.patch
 BuildRequires:	bison
 Buildrequires:	gtk+2-devel
 BuildRequires:	openssl-devel
@@ -171,8 +169,6 @@ Provides capability to extract URLs from XChat conversations.
 %setup -q
 %patch0 -p1 -b .ctcp_version
 %patch1 -p1 -b .config
-%patch2 -p1 -b .static
-%patch3 -p1 -b .dialog
 
 %build
 %configure2_5x  --disable-schemas-install \
