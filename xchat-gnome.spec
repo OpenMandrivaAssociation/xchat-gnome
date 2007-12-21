@@ -69,6 +69,7 @@ Provides:	xchat-gnome-dbus = %{version}-%{release}
 Obsoletes:	xchat-gnome-dbus < 0.15
 Requires(post):	scrollkeeper
 Requires(postun): scrollkeeper
+Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 XChat-gnome is a new frontend to the popular X-Chat IRC client which is
