@@ -44,7 +44,7 @@ BuildRequires:	bison
 Buildrequires:	gtk+2-devel
 BuildRequires:	openssl-devel
 BuildRequires:	GConf2
-BuildRequires:	intltool
+BuildRequires:	intltool gettext-devel
 BuildRequires:	dbus-glib-devel
 BuildRequires:	libgnomeui2-devel
 BuildRequires:	libglade2.0-devel
