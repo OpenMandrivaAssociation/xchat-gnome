@@ -27,20 +27,24 @@
 
 Summary:	Graphical IRC client for the GNOME desktop 
 Name:		xchat-gnome
-Version:	0.18
-Release:	%mkrel 6
+Version:	0.23.92
+Release:	%mkrel 1
 Group:		Networking/IRC
 License:	GPLv2+
 Url:		http://xchat-gnome.navi.cx
-Source:		http://flapjack.navi.cx/releases/xchat-gnome/%{name}-%{version}.tar.bz2 
+Source:		http://ftp.gnome.org/pub/GNOME/sources/xchat-gnome/0.23/%{name}-%{version}.tar.bz2 
 # do not give away OS with VERSION
 Patch0:		%{name}-0.18-ctcp_version.patch
 # (tpg) no more crash on startup
 Patch1:		%{name}-0.18-config.patch
+# Backported patch to correctly set the libnotify and libcanberra options 
+# http://bugzilla.gnome.org/show_bug.cgi?id=551515
+Patch2:		xchat-gnome-0.23.92-deps.patch
 BuildRequires:	bison
 Buildrequires:	gtk+2-devel
 BuildRequires:	openssl-devel
 BuildRequires:	GConf2
+BuildRequires:	dbus-glib-devel
 BuildRequires:	libgnomeui2-devel
 BuildRequires:	libglade2.0-devel
 BuildRequires:	libnotify-devel
@@ -50,6 +54,7 @@ BuildRequires:	gnome-common
 BuildRequires:	gnome-doc-utils
 BuildRequires:	libnotify-devel
 BuildRequires:	libsexy-devel
+BuildRequires:	libcanberra-devel >= 0.3
 %if %build_perl
 BuildRequires:	perl-devel
 %endif
@@ -165,12 +170,14 @@ Provides capability to extract URLs from XChat conversations.
 %setup -q
 %patch0 -p1 -b .ctcp_version
 %patch1 -p1 -b .config
+%patch2 -p1 -b .deps
 
 %build
+autoreconf
 %configure2_5x  --disable-schemas-install \
 		--enable-scrollkeeper \
 		--disable-static \
-		--with-plugins=autoaway,notification,notify-osd,url_scraper,sound-notification\
+		--with-plugins=autoaway,dbus,notification,notify-osd,url_scraper,sound-notification\
 %if %build_perl
 ,perl\
 %endif
