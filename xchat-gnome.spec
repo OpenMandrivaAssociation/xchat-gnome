@@ -27,19 +27,16 @@
 
 Summary:	Graphical IRC client for the GNOME desktop 
 Name:		xchat-gnome
-Version:	0.23.92
+Version:	0.24.0
 Release:	%mkrel 1
 Group:		Networking/IRC
 License:	GPLv2+
 Url:		http://xchat-gnome.navi.cx
-Source:		http://ftp.gnome.org/pub/GNOME/sources/xchat-gnome/0.23/%{name}-%{version}.tar.bz2 
+Source:		http://ftp.gnome.org/pub/GNOME/sources/xchat-gnome/0.24/%{name}-%{version}.tar.bz2 
 # do not give away OS with VERSION
 Patch0:		%{name}-0.18-ctcp_version.patch
 # (tpg) no more crash on startup
 Patch1:		%{name}-0.18-config.patch
-# Backported patch to correctly set the libnotify and libcanberra options 
-# http://bugzilla.gnome.org/show_bug.cgi?id=551515
-Patch2:		xchat-gnome-0.23.92-deps.patch
 BuildRequires:	bison
 Buildrequires:	gtk+2-devel
 BuildRequires:	openssl-devel
@@ -171,7 +168,6 @@ Provides capability to extract URLs from XChat conversations.
 %setup -q
 %patch0 -p1 -b .ctcp_version
 %patch1 -p1 -b .config
-%patch2 -p1 -b .deps
 
 %build
 autoreconf
@@ -261,7 +257,7 @@ chrpath -d %{buildroot}%{_libdir}/%{name}/plugins/autoaway.so
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc NEWS AUTHORS ChangeLog COPYING
+%doc NEWS AUTHORS ChangeLog
 %{_sysconfdir}/gconf/schemas/apps_xchat.schemas
 %{_sysconfdir}/gconf/schemas/xchat_gnome_url_handler.schemas
 %attr(755,root,root) %{_bindir}/xchat-gnome
