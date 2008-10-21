@@ -27,7 +27,7 @@
 
 Summary:	Graphical IRC client for the GNOME desktop 
 Name:		xchat-gnome
-Version:	0.24.0
+Version:	0.24.1
 Release:	%mkrel 1
 Group:		Networking/IRC
 License:	GPLv2+
