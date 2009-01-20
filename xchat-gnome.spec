@@ -27,8 +27,8 @@
 
 Summary:	Graphical IRC client for the GNOME desktop 
 Name:		xchat-gnome
-Version:	0.24.1
-Release:	%mkrel 3
+Version:	0.24.3
+Release:	%mkrel 1
 Group:		Networking/IRC
 License:	GPLv2+
 Url:		http://xchat-gnome.navi.cx
@@ -60,7 +60,8 @@ BuildRequires:	perl-devel
 BuildRequires:	python-devel
 %endif
 %if %build_tcl
-BuildRequires:	tcl tcl-devel
+BuildRequires:	tcl
+BuildRequires:	tcl-devel
 %endif
 BuildRequires:	dbus-devel >= 0.50
 %if %build_plf
@@ -71,7 +72,7 @@ BuildRequires:	chrpath
 Provides:	xchat-gnome-dbus = %{version}-%{release}
 Obsoletes:	xchat-gnome-dbus < 0.15
 Requires(post):	scrollkeeper
-Requires(postun): scrollkeeper
+Requires(postun):	scrollkeeper
 Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
