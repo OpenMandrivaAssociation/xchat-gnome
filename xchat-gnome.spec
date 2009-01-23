@@ -6,33 +6,33 @@
 
 %{?_with_plf: %{expand: %%global build_plf 1}}
 
-%{?_without_perl: %{expand: %%global build_perl 0}} 
-%{?_with_perl: %{expand: %%global build_perl 1}} 
+%{?_without_perl: %{expand: %%global build_perl 0}}
+%{?_with_perl: %{expand: %%global build_perl 1}}
 
-%{?_without_python: %{expand: %%global build_python 0}} 
-%{?_with_python: %{expand: %%global build_python 1}} 
+%{?_without_python: %{expand: %%global build_python 0}}
+%{?_with_python: %{expand: %%global build_python 1}}
 
-%{?_without_tcl: %{expand: %%global build_tcl 0}} 
-%{?_with_tcl: %{expand: %%global build_tcl 1}} 
+%{?_without_tcl: %{expand: %%global build_tcl 0}}
+%{?_with_tcl: %{expand: %%global build_tcl 1}}
 
-%{?_without_netmon: %{expand: %%global build_netmon 0}} 
-%{?_with_netmon: %{expand: %%global build_netmon 1}} 
+%{?_without_netmon: %{expand: %%global build_netmon 0}}
+%{?_with_netmon: %{expand: %%global build_netmon 1}}
 
 %define perl_version	%(rpm -q --qf '%%{epoch}:%%{VERSION}' perl)
-%define iconname xchat-gnome.png 
+%define iconname xchat-gnome.png
 
 %if %build_plf
 %define distsuffix plf
-%endif 
+%endif
 
-Summary:	Graphical IRC client for the GNOME desktop 
+Summary:	Graphical IRC client for the GNOME desktop
 Name:		xchat-gnome
-Version:	0.24.3
+Version:	0.24.3.1
 Release:	%mkrel 1
 Group:		Networking/IRC
 License:	GPLv2+
 Url:		http://xchat-gnome.navi.cx
-Source:		http://ftp.gnome.org/pub/GNOME/sources/xchat-gnome/0.24/%{name}-%{version}.tar.bz2 
+Source:		http://ftp.gnome.org/pub/GNOME/sources/xchat-gnome/0.24/%{name}-%{version}.tar.bz2
 # do not give away OS with VERSION
 Patch0:		%{name}-0.18-ctcp_version.patch
 # (tpg) no more crash on startup
