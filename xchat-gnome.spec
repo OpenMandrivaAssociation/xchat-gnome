@@ -32,7 +32,7 @@ Release:	%mkrel 1
 Group:		Networking/IRC
 License:	GPLv2+
 Url:		http://xchat-gnome.navi.cx
-Source:		http://ftp.gnome.org/pub/GNOME/sources/xchat-gnome/0.24/%{name}-%{version}.tar.bz2
+Source:		http://ftp.gnome.org/pub/GNOME/sources/xchat-gnome/%{name}-%{version}.tar.bz2
 # do not give away OS with VERSION
 Patch0:		%{name}-0.18-ctcp_version.patch
 # (tpg) no more crash on startup
