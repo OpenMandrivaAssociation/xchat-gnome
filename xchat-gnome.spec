@@ -28,7 +28,7 @@
 Summary:	Graphical IRC client for the GNOME desktop
 Name:		xchat-gnome
 Version:	0.26.1
-Release:	%mkrel 2
+Release:	%mkrel 3
 Group:		Networking/IRC
 License:	GPLv2+
 Url:		http://xchat-gnome.navi.cx
@@ -37,6 +37,8 @@ Source:		http://ftp.gnome.org/pub/GNOME/sources/xchat-gnome/%{name}-%{version}.t
 Patch0:		%{name}-0.18-ctcp_version.patch
 # (tpg) no more crash on startup
 Patch1:		%{name}-0.18-config.patch
+Patch2:		xchat-gnome-0.26.1-depreciated-macros.patch
+Patch3:		xchat-gnome-0.26.1-link.patch
 BuildRequires:	bison
 Buildrequires:	gtk+2-devel
 BuildRequires:	openssl-devel
@@ -169,12 +171,14 @@ Provides capability to extract URLs from XChat conversations.
 %setup -q
 %patch0 -p1 -b .ctcp_version
 %patch1 -p1 -b .config
+%patch2 -p1 -b .gtk
+%patch3 -p0 -b .link
 
 %build
-autoreconf
+autoreconf -fi
 %configure2_5x  --disable-schemas-install \
 		--enable-scrollkeeper \
-		--disable-static \
+		--disable-static --disable-maintainer-mode \
 		--with-plugins=autoaway,dbus,notification,notify-osd,url_scraper,sound-notification\
 %if %build_perl
 ,perl\
