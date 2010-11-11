@@ -54,7 +54,7 @@ BuildRequires:	gnome-common
 BuildRequires:	gnome-doc-utils
 BuildRequires:	libnotify-devel
 BuildRequires:	libsexy-devel
-BuildRequires:	libcanberra-devel >= 0.3
+BuildRequires:	libcanberra-gtk-devel >= 0.3
 %if %build_perl
 BuildRequires:	perl-devel
 %endif
