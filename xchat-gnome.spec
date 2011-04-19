@@ -174,7 +174,7 @@ Provides capability to extract URLs from XChat conversations.
 %patch1 -p1 -b .config
 %patch2 -p1 -b .gtk
 %patch3 -p0 -b .link
-%patch0 -p0 -b .libnotify
+%patch4 -p0 -b .libnotify
 
 %build
 autoreconf -fi
