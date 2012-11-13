@@ -1,0 +1,13 @@
+diff -Naur xchat-gnome-0.18/src/common/ctcp.c xchat-gnome-0.18.tpg/src/common/ctcp.c
+--- xchat-gnome-0.18/src/common/ctcp.c	2007-06-13 00:03:17.000000000 +0000
++++ xchat-gnome-0.18.tpg/src/common/ctcp.c	2007-08-29 21:06:57.000000000 +0000
+@@ -130,8 +130,7 @@
+ 
+ 	if (!strcasecmp (msg, "VERSION") && !prefs.hidever)
+ 	{
+-		snprintf (outbuf, sizeof (outbuf), "VERSION xchat "PACKAGE_VERSION" %s",
+-					 get_cpu_str ());
++		snprintf (outbuf, sizeof (outbuf), "VERSION xchat" PACKAGE_VERSION);
+ 		serv->p_nctcp (serv, nick, outbuf);
+ 	}
+ 

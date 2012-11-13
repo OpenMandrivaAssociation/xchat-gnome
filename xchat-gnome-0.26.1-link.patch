@@ -1,0 +1,30 @@
+--- plugins/notification/Makefile.am.link	2010-04-26 14:37:56.000000000 +0200
++++ plugins/notification/Makefile.am	2010-04-26 14:39:09.000000000 +0200
+@@ -24,6 +24,8 @@
+ 	-module		\
+ 	$(AM_LDFLAGS)
+ 
++notification_la_LIBADD = $(DEPENDENCIES_LIBS)
++
+ xchat_gnome_DATA = 			\
+ 	preferences-notification.glade
+ 
+--- plugins/python/Makefile.am.link	2010-04-26 14:39:27.000000000 +0200
++++ plugins/python/Makefile.am	2010-04-26 14:40:10.000000000 +0200
+@@ -19,4 +19,4 @@
+ 	$(PYTHON_LIB_LOC)	\
+ 	$(AM_LDFLAGS)
+ 
+-python_la_LIBADD = $(PYTHON_LIBS)
++python_la_LIBADD = $(PYTHON_LIBS) $(DEPENDENCIES_LIBS)
+--- plugins/url_scraper/Makefile.am.link	2010-04-26 14:37:10.000000000 +0200
++++ plugins/url_scraper/Makefile.am	2010-04-26 14:37:37.000000000 +0200
+@@ -16,6 +16,8 @@
+ 	-module		\
+ 	$(AM_LDFLAGS)
+ 
++urlscraper_la_LIBADD = $(DEPENDENCIES_LIBS)
++
+ schemadir	= $(GCONF_SCHEMA_FILE_DIR)
+ schema_in_files	= urlscraper.schemas.in
+ schema_DATA	= $(schema_in_files:.schemas.in=.schemas)
