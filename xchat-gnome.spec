@@ -31,7 +31,7 @@ Version:	0.26.1
 Release:	%mkrel 8
 Group:		Networking/IRC
 License:	GPLv2+
-Url:		http://xchat-gnome.navi.cx
+Url:		https://xchat-gnome.navi.cx
 Source:		http://ftp.gnome.org/pub/GNOME/sources/xchat-gnome/%{name}-%{version}.tar.bz2
 # do not give away OS with VERSION
 Patch0:		%{name}-0.18-ctcp_version.patch
